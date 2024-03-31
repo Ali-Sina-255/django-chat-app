@@ -32,6 +32,8 @@ class Messages(models.Model):
         )
         reciepient_message.save()
         return sender_message
+    
+    
     def get_message(user):
         user = []
         messages = Messages.objects.filter(user=user).values('reciepient').annotate(last=Max('created_time')).order_by('-last')
