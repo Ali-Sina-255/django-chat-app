@@ -1,3 +1,10 @@
 from django.contrib import admin
+from . models import Messages
+from import_export.admin import ImportExportModelAdmin
 
-# Register your models here.
+
+class MessagesAdmin(ImportExportModelAdmin):
+    list_display = ['user', 'reciepient', "body"]
+    list_filter = ["is_read"]
+    
+admin.site.register(Messages,MessagesAdmin)
