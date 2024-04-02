@@ -10,7 +10,7 @@ class Messages(models.Model):
     reciepient = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='to_user')
     body = models.TextField()
-    created_time = models.DateTimeField(auto_now_add=True)
+    datatime = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField(default=False)
 
     def sender_message(from_user, to_user, body):
@@ -36,7 +36,7 @@ class Messages(models.Model):
     
     def get_message(user):
         users = []
-        messages = Messages.objects.filter(user=user).values('reciepient').annotate(last=Max('created_time')).order_by('-last')
+        messages = Messages.objects.filter(user=user).values('reciepient').annotate(last=Max('datatime')).order_by('-last')
         for message in messages:
             users.append(
                 {
